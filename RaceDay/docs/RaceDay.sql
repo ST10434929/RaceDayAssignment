@@ -218,3 +218,105 @@ VALUES
     'Upcoming'
 );
 GO
+
+INSERT INTO Categories
+(
+    EventID,
+    CategoryName,
+    ActivityType,
+    DistanceKM,
+    EntryFee,
+    MaximumParticipants
+)
+VALUES
+(1, '10km Run', 'Running', 10.00, 150.00, 500),
+(1, '5km Fun Run', 'Running', 5.00, 100.00, 700),
+(2, '10km Walk', 'Walking', 10.00, 80.00, 400),
+(2, '5km Family Walk', 'Walking', 5.00, 50.00, 500),
+(3, '50km Cycle', 'Cycling', 50.00, 300.00, 300),
+(3, '100km Cycle', 'Cycling', 100.00, 450.00, 250);
+GO
+
+INSERT INTO Routes
+(
+    EventID,
+    StartPoint,
+    FinishPoint,
+    DistanceKM,
+    ElevationGainM,
+    RouteDescription,
+    MapURL
+)
+VALUES
+(
+    1,
+    'Union Buildings',
+    'Church Square',
+    10.00,
+    120,
+    'Urban Pretoria running route.',
+    'https://example.com/pretoria-route'
+),
+(
+    2,
+    'Zoo Lake',
+    'Zoo Lake',
+    10.00,
+    80,
+    'Community walking route.',
+    'https://example.com/johannesburg-route'
+),
+(
+    3,
+    'Cape Town Stadium',
+    'Cape Town Stadium',
+    100.00,
+    850,
+    'Road cycling route around Cape Town.',
+    'https://example.com/cape-cycle-route'
+);
+GO
+
+INSERT INTO Enrolments
+(
+    UserID,
+    CategoryID,
+    EmergencyContactName,
+    EmergencyContactPhone,
+    PaymentStatus,
+    EnrolmentStatus
+)
+VALUES
+(
+    3,
+    1,
+    'Nomsa Mthembu',
+    '0865555555',
+    'Paid',
+    'Active'
+),
+(
+    3,
+    3,
+    'Nomsa Mthembu',
+    '0865555555',
+    'Paid',
+    'Active'
+),
+(
+    4,
+    2,
+    'Michael Jacobs',
+    '0876666666',
+    'Pending',
+    'Active'
+),
+(
+    4,
+    5,
+    'Michael Jacobs',
+    '0876666666',
+    'Paid',
+    'Active'
+);
+GO
