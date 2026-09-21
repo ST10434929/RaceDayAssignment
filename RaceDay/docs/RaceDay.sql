@@ -107,3 +107,47 @@ CREATE TABLE Enrolments
         UNIQUE (UserID, CategoryID)
 );
 GO
+
+CREATE TABLE Results
+(
+    ResultID INT IDENTITY(1,1) PRIMARY KEY,
+    EnrolmentID INT NOT NULL UNIQUE,
+    FinishTime TIME NULL,
+    Position INT NULL,
+    ResultStatus NVARCHAR(20) NOT NULL
+        CONSTRAINT CK_Results_Status
+        CHECK (ResultStatus IN
+        ('Finished', 'DNF', 'DNS', 'Disqualified')),
+    RecordedDate DATETIME2 NOT NULL
+        CONSTRAINT DF_Results_RecordedDate
+        DEFAULT GETDATE(),
+
+    CONSTRAINT CK_Results_Position
+        CHECK (Position IS NULL OR Position > 0),
+
+    CONSTRAINT FK_Results_Enrolment
+        FOREIGN KEY (EnrolmentID)
+        REFERENCES Enrolments(EnrolmentID)
+);
+GO
+
+CREATE TABLE Routes
+(
+    RouteID INT IDENTITY(1,1) PRIMARY KEY,
+    EventID INT NOT NULL UNIQUE,
+    StartPoint NVARCHAR(200) NOT NULL,
+    FinishPoint NVARCHAR(200) NOT NULL,
+    DistanceKM DECIMAL(6,2) NOT NULL
+        CONSTRAINT CK_Routes_Distance
+        CHECK (DistanceKM > 0),
+    ElevationGainM INT NULL
+        CONSTRAINT CK_Routes_Elevation
+        CHECK (ElevationGainM IS NULL OR ElevationGainM >= 0),
+    RouteDescription NVARCHAR(1000) NULL,
+    MapURL NVARCHAR(500) NULL,
+
+    CONSTRAINT FK_Routes_Event
+        FOREIGN KEY (EventID)
+        REFERENCES Events(EventID)
+);
+GO
