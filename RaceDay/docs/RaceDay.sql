@@ -1,0 +1,5 @@
+CREATE DATABASE RaceDay;
+GO
+
+USE RaceDay;
+GO
