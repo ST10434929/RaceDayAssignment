@@ -320,3 +320,33 @@ VALUES
     'Active'
 );
 GO
+
+INSERT INTO Results
+(
+    EnrolmentID,
+    FinishTime,
+    Position,
+    ResultStatus
+)
+VALUES
+(
+    1,
+    '00:52:35',
+    15,
+    'Finished'
+),
+(
+    2,
+    '01:05:20',
+    22,
+    'Finished'
+);
+GO
+
+SELECT * FROM Users;
+SELECT * FROM Events;
+SELECT * FROM Categories;
+SELECT * FROM Routes;
+SELECT * FROM Enrolments;
+SELECT * FROM Results;
+GO
