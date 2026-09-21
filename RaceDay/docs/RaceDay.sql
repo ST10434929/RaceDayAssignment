@@ -47,3 +47,63 @@ CREATE TABLE Events
         REFERENCES Users(UserID)
 );
 GO
+
+CREATE TABLE Categories
+(
+    CategoryID INT IDENTITY(1,1) PRIMARY KEY,
+    EventID INT NOT NULL,
+    CategoryName NVARCHAR(100) NOT NULL,
+    ActivityType NVARCHAR(20) NOT NULL
+        CONSTRAINT CK_Categories_ActivityType
+        CHECK (ActivityType IN ('Running', 'Walking', 'Cycling')),
+    DistanceKM DECIMAL(6,2) NOT NULL
+        CONSTRAINT CK_Categories_Distance
+        CHECK (DistanceKM > 0),
+    EntryFee DECIMAL(10,2) NOT NULL
+        CONSTRAINT CK_Categories_EntryFee
+        CHECK (EntryFee >= 0),
+    MaximumParticipants INT NOT NULL
+        CONSTRAINT CK_Categories_MaxParticipants
+        CHECK (MaximumParticipants > 0),
+    IsActive BIT NOT NULL
+        CONSTRAINT DF_Categories_IsActive
+        DEFAULT 1,
+
+    CONSTRAINT FK_Categories_Event
+        FOREIGN KEY (EventID)
+        REFERENCES Events(EventID),
+
+    CONSTRAINT UQ_Categories_Event_Category
+        UNIQUE (EventID, CategoryName)
+);
+GO
+
+CREATE TABLE Enrolments
+(
+    EnrolmentID INT IDENTITY(1,1) PRIMARY KEY,
+    UserID INT NOT NULL,
+    CategoryID INT NOT NULL,
+    EnrolmentDate DATETIME2 NOT NULL
+        CONSTRAINT DF_Enrolments_Date
+        DEFAULT GETDATE(),
+    EmergencyContactName NVARCHAR(100) NOT NULL,
+    EmergencyContactPhone NVARCHAR(20) NOT NULL,
+    PaymentStatus NVARCHAR(20) NOT NULL
+        CONSTRAINT CK_Enrolments_Payment
+        CHECK (PaymentStatus IN ('Pending', 'Paid', 'Refunded')),
+    EnrolmentStatus NVARCHAR(20) NOT NULL
+        CONSTRAINT CK_Enrolments_Status
+        CHECK (EnrolmentStatus IN ('Active', 'Cancelled')),
+
+    CONSTRAINT FK_Enrolments_User
+        FOREIGN KEY (UserID)
+        REFERENCES Users(UserID),
+
+    CONSTRAINT FK_Enrolments_Category
+        FOREIGN KEY (CategoryID)
+        REFERENCES Categories(CategoryID),
+
+    CONSTRAINT UQ_Enrolments_User_Category
+        UNIQUE (UserID, CategoryID)
+);
+GO
