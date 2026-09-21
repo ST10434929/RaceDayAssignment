@@ -151,3 +151,70 @@ CREATE TABLE Routes
         REFERENCES Events(EventID)
 );
 GO
+
+INSERT INTO Users
+(
+    FirstName,
+    LastName,
+    Email,
+    PasswordHash,
+    PhoneNumber,
+    Role
+)
+VALUES
+('Thabo', 'Mokoena', 'thabo@raceday.co.za',
+ 'HASHED_PASSWORD_1', '0821111111', 'Organiser'),
+
+('Lerato', 'Naidoo', 'lerato@raceday.co.za',
+ 'HASHED_PASSWORD_2', '0832222222', 'Organiser'),
+
+('Aisha', 'Mthembu', 'aisha@example.com',
+ 'HASHED_PASSWORD_3', '0843333333', 'Participant'),
+
+('Daniel', 'Jacobs', 'daniel@example.com',
+ 'HASHED_PASSWORD_4', '0854444444', 'Participant');
+GO
+
+INSERT INTO Events
+(
+    OrganiserID,
+    EventName,
+    Description,
+    EventDate,
+    StartTime,
+    Location,
+    Province,
+    Status
+)
+VALUES
+(
+    1,
+    'Pretoria City Run',
+    'Annual road running event in Pretoria.',
+    '2027-03-15',
+    '07:00',
+    'Pretoria',
+    'Gauteng',
+    'Open'
+),
+(
+    1,
+    'Johannesburg Charity Walk',
+    'Community charity walking event.',
+    '2027-04-10',
+    '08:00',
+    'Johannesburg',
+    'Gauteng',
+    'Upcoming'
+),
+(
+    2,
+    'Cape Cycle Challenge',
+    'Road cycling event around Cape Town.',
+    '2027-05-20',
+    '06:30',
+    'Cape Town',
+    'Western Cape',
+    'Upcoming'
+);
+GO
