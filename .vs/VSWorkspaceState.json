@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\RaceDay",
+    "\\RaceDay\\docs"
   ],
+  "SelectedNode": "\\.github\\workflows\\part1-validation.yml",
   "PreviewInSolutionExplorer": false
 }
